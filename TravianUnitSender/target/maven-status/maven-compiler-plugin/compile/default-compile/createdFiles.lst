@@ -1,4 +1,14 @@
+org\pupkaci\travianunitsender\AboutDialogController.class
+org\pupkaci\travianunitsender\MainSceneController$2.class
 org\pupkaci\travianunitsender\LoginFXController.class
 org\pupkaci\travianunitsender\MainSceneController.class
-org\pupkaci\travianunitsender\FXMLController.class
+org\pupkaci\travianunitsender\MovementListCell.class
+org\pupkaci\travianunitsender\SingleMovementCellController.class
 org\pupkaci\travianunitsender\MainApp.class
+org\pupkaci\travianunitsender\SingleMovementData.class
+org\pupkaci\travianunitsender\MovementCellData.class
+org\pupkaci\travianunitsender\MovementListCell$1.class
+org\pupkaci\travianunitsender\MainSceneController$3.class
+org\pupkaci\travianunitsender\MainSceneController$1.class
+org\pupkaci\travianunitsender\FXMLController.class
+org\pupkaci\travianunitsender\MainSceneController$4.class

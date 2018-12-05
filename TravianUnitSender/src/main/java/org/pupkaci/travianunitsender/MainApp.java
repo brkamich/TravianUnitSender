@@ -10,8 +10,9 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
+    
     public Scene currentScene;
-    public Stage stage;
+    public static Stage stage;
     public static MainApp instance;
     @Override
     
@@ -24,7 +25,28 @@ public class MainApp extends Application {
         stage.setTitle("Travian Unit Sender");
         stage.setScene(currentScene);
         stage.show();
+        System.out.println("w "+stage.getWidth()+" h "+stage.getHeight());
     }
+    static void signOut() {
+        try
+        {
+        Parent root = FXMLLoader.load(MainApp.class.getResource("/fxml/LoginFX.fxml"));
+        instance.currentScene = new Scene(root);
+            instance.stage.setScene(instance.currentScene);
+            instance.stage.show();
+            instance.stage.setTitle("Travian Unit Sender");
+            instance.stage.setMinWidth(636);
+            instance.stage.setMinHeight(439);
+            instance.stage.setWidth(636);           
+            instance.stage.setHeight(439);
+
+        }catch(Exception ex)
+        {
+            System.out.println("Exception : "+ex.getMessage());
+            System.out.println("Exception : "+ex.getStackTrace());
+        }
+    }
+
     public static void onLogin(String username,String server) 
     {
         try
@@ -34,13 +56,15 @@ public class MainApp extends Application {
             instance.stage.setScene(instance.currentScene);
             instance.stage.show();
             instance.stage.setMinWidth(916);
-            instance.stage.setMinHeight(739);
+            instance.stage.setMinHeight(760);
+            
             System.out.println("W:"+instance.stage.widthProperty().get()+" H:"+instance.stage.heightProperty().get());
             instance.stage.setTitle(username+" @ "+server);
         }
         catch(Exception ex)
         {
-            
+            System.out.println("Exception : "+ex.getMessage());
+            System.out.println("Exception : "+ex.getStackTrace());
         }
     }
     /**

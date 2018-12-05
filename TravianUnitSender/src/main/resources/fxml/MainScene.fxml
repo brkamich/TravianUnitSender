@@ -6,16 +6,15 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -26,7 +25,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.pupkaci.traviancomponents.DateTimePicker?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="900.0" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="900.0" prefHeight="820.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.pupkaci.travianunitsender.MainSceneController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -40,18 +39,18 @@
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Import project..." />
-                        <MenuItem mnemonicParsing="false" text="Export project..." />
+                        <MenuItem mnemonicParsing="false" onAction="#onImportClick" text="Import project..." />
+                        <MenuItem fx:id="exportBtn" mnemonicParsing="false" onAction="#onExportClick" text="Export project..." />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Account">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Sign Out" />
+                        <MenuItem mnemonicParsing="false" onAction="#onSignOutClick" text="Sign Out" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
+                        <MenuItem fx:id="aboutBtn" mnemonicParsing="false" onAction="#onAboutClick" text="About" />
                     </items>
                 </Menu>
             </menus>
@@ -73,7 +72,7 @@
                             </columnConstraints>
                             <rowConstraints>
                                 <RowConstraints maxHeight="253.0" minHeight="119.0" prefHeight="253.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="532.0" minHeight="398.0" prefHeight="398.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="398.0" prefHeight="398.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <StackPane prefHeight="150.0" prefWidth="200.0">
@@ -100,7 +99,7 @@
                                             </columnConstraints>
                                             <rowConstraints>
                                                 <RowConstraints maxHeight="151.0" minHeight="10.0" prefHeight="116.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="134.0" minHeight="10.0" prefHeight="84.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="134.0" minHeight="10.0" prefHeight="84.0" vgrow="SOMETIMES" />
                                                 <RowConstraints maxHeight="134.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                             <StackPane.margin>
@@ -146,12 +145,12 @@
                                                         </VBox>
                                                         <VBox layoutX="37.0" layoutY="8.0" prefHeight="200.0" prefWidth="100.0" spacing="8.0">
                                                             <children>
-                                                                <Spinner prefHeight="25.0" prefWidth="88.0" />
-                                                                <Spinner prefHeight="25.0" prefWidth="88.0" />
-                                                                <Spinner prefHeight="25.0" prefWidth="88.0" />
-                                                                <Spinner prefHeight="25.0" prefWidth="88.0" />
-                                                                <Spinner prefHeight="25.0" prefWidth="88.0" />
-                                                                <Spinner prefHeight="25.0" prefWidth="88.0" />
+                                                                <TextField fx:id="unitNumField1" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
+                                                                <TextField fx:id="unitNumField2" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
+                                                                <TextField fx:id="unitNumField3" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
+                                                                <TextField fx:id="unitNumField4" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
+                                                                <TextField fx:id="unitNumField5" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
+                                                                <TextField fx:id="unitNumField6" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
                                                             </children>
                                                         </VBox>
                                                         <VBox layoutX="140.0" layoutY="9.0" prefHeight="200.0" prefWidth="15.0" spacing="9.0">
@@ -180,12 +179,10 @@
                                                         </VBox>
                                                         <VBox layoutX="170.0" layoutY="8.0" prefHeight="200.0" prefWidth="100.0" spacing="8.0">
                                                             <children>
-                                                                <Spinner prefHeight="25.0" prefWidth="88.0" />
-                                                                <Spinner prefHeight="25.0" prefWidth="88.0" />
-                                                                <Spinner prefHeight="25.0" prefWidth="88.0" />
-                                                                <Spinner prefHeight="25.0" prefWidth="88.0" />
-                                                                <Spinner prefHeight="25.0" prefWidth="88.0" />
-                                                                <Spinner prefHeight="25.0" prefWidth="88.0" />
+                                                                <TextField fx:id="unitNumField7" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
+                                                                <TextField fx:id="unitNumField8" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
+                                                                <TextField fx:id="unitNumField9" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
+                                                                <TextField fx:id="unitNumField10" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
                                                             </children>
                                                         </VBox>
                                                     </children>
@@ -201,66 +198,67 @@
                                                         <Label layoutX="9.0" layoutY="-8.0" style="-fx-background-color: f4f4f4;" text=" Coordinates " />
                                                         <Label layoutX="15.0" layoutY="18.0" text="Source village" />
                                                         <Label layoutX="15.0" layoutY="51.0" text="Target village" />
-                                                        <TextField layoutX="118.0" layoutY="14.0" prefHeight="25.0" prefWidth="53.0" promptText="x" />
+                                                        <TextField fx:id="sourceX" layoutX="118.0" layoutY="14.0" prefHeight="25.0" prefWidth="53.0" promptText="x" />
                                                         <Label layoutX="108.0" layoutY="18.0" text="x:" />
-                                                        <TextField layoutX="190.0" layoutY="14.0" prefHeight="25.0" prefWidth="53.0" promptText="y" />
+                                                        <TextField fx:id="sourceY" layoutX="190.0" layoutY="14.0" prefHeight="25.0" prefWidth="53.0" promptText="y" />
                                                         <Label layoutX="180.0" layoutY="18.0" text="y:" />
-                                                        <TextField layoutX="118.0" layoutY="47.0" prefHeight="25.0" prefWidth="53.0" promptText="x" text="10" />
+                                                        <TextField fx:id="targetX" layoutX="118.0" layoutY="47.0" prefHeight="25.0" prefWidth="53.0" promptText="x" />
                                                         <Label layoutX="108.0" layoutY="51.0" text="x:" />
-                                                        <TextField layoutX="190.0" layoutY="47.0" prefHeight="25.0" prefWidth="53.0" promptText="y" text="15" />
+                                                        <TextField fx:id="targetY" layoutX="190.0" layoutY="47.0" prefHeight="25.0" prefWidth="53.0" promptText="y" />
                                                         <Label layoutX="180.0" layoutY="51.0" text="y:" />
                                                     </children>
                                                 </Pane>
                                                 <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;" GridPane.columnIndex="2">
                                                     <children>
                                                         <Label layoutX="9.0" layoutY="-8.0" style="-fx-background-color: f4f4f4;" text=" Parameters " />
-                                                        <ChoiceBox layoutX="84.0" layoutY="14.0" prefHeight="25.0" prefWidth="173.0" value="Reinforcement">
+                                                        <ChoiceBox fx:id="attackTypeBox" layoutX="84.0" layoutY="14.0" prefHeight="25.0" prefWidth="173.0" value="Normal">
                                                             <items>
                                                                 <FXCollections fx:factory="observableArrayList">
+                                                                    <String fx:value="Normal" />
                                                                     <String fx:value="Reinforcement" />
                                                                     <String fx:value="Raid" />
-                                                                    <String fx:value="Normal" />
+                                                                    
                                                                 </FXCollections>
                                                             </items>
                                                         </ChoiceBox>
                                                         <Label layoutX="15.0" layoutY="18.0" text="Type" />
                                                         <Label layoutX="15.0" layoutY="51.0" text="Departure" />
-                                          <DateTimePicker layoutX="84.0" layoutY="47.0" />
+                                                        <DateTimePicker fx:id="departurePicker" layoutX="84.0" layoutY="47.0" />
                                           
                                                     </children>
                                                     <GridPane.margin>
                                                         <Insets bottom="10.0" left="8.0" right="10.0" top="15.0" />
                                                     </GridPane.margin>
                                                 </Pane>
-                                    <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
-                                       <children>
-                                          <Label layoutX="9.0" layoutY="-8.0" style="-fx-background-color: f4f4f4;" text=" Parameters " />
-                                       </children>
-                                       <GridPane.margin>
+                                                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                                    <children>
+                                                        <Label layoutX="9.0" layoutY="-8.0" style="-fx-background-color: f4f4f4;" text=" Parameters " />
+                                                    </children>
+                                                    <GridPane.margin>
                                                         <Insets bottom="10.0" left="8.0" right="10.0" top="10.0" />
                                                     </GridPane.margin>
-                                    </Pane>
-                                    <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                                       <children>
-                                          <Button mnemonicParsing="false" text="Add Movement" />
-                                          <Button mnemonicParsing="false" text="Reset" />
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="10.0" right="10.0" />
-                                       </padding>
-                                    </HBox>
+                                                </Pane>
+                                                <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                                    <children>
+                                                        <Button fx:id="addMovementBtn" mnemonicParsing="false" onAction="#onMovementAddClick" text="Add Movement" />
+                                                        <Button fx:id="resetBtn" mnemonicParsing="false" onAction="#onResetBtnClick" text="Reset" />
+                                                    </children>
+                                                    <padding>
+                                                        <Insets bottom="10.0" right="10.0" />
+                                                    </padding>
+                                                </HBox>
                                             </children>
                                         </GridPane>
                                     </children>
                                 </StackPane>
-                                <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                <StackPane maxHeight="1.7976931348623157E308" prefWidth="200.0" GridPane.rowIndex="1">
                                     <children>
                                         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;">
                                             <StackPane.margin>
                                                 <Insets bottom="10.0" left="15.0" right="15.0" top="15.0" />
                                             </StackPane.margin>
                                         </Pane>
-                                        <Pane prefHeight="200.0" prefWidth="200.0">
+                                        <Pane prefHeight="200.0" prefWidth="900.0">
                                             <children>
                                                 <Label layoutX="27.0" layoutY="4.0" style="-fx-background-color: F4F4F4;" text="Scheduled movements">
                                                     <font>
@@ -269,19 +267,21 @@
                                                 </Label>
                                             </children>
                                         </Pane>
-                                        <GridPane>
+                                        <GridPane maxHeight="1.7976931348623157E308">
                                             <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                             </columnConstraints>
                                             <rowConstraints>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="48.0" minHeight="17.0" prefHeight="17.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="356.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                             <StackPane.margin>
                                                 <Insets bottom="10.0" left="15.0" right="15.0" top="15.0" />
                                             </StackPane.margin>
+                                            <children>
+                                                <ListView fx:id="mainList" maxHeight="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                                                <Pane prefHeight="200.0" prefWidth="200.0" />
+                                            </children>
                                         </GridPane>
                                     </children>
                                 </StackPane>
@@ -293,7 +293,51 @@
                 </Tab>
                 <Tab text="History">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <GridPane prefHeight="500.0" prefWidth="900.0">
+                            <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="398.0" prefHeight="644.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                     <children>
+                        <StackPane maxHeight="1.7976931348623157E308" prefWidth="200.0" GridPane.columnSpan="2147483647">
+                           <children>
+                              <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;">
+                                 <StackPane.margin>
+                                    <Insets bottom="10.0" left="15.0" right="15.0" top="15.0" />
+                                 </StackPane.margin>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="900.0">
+                                 <children>
+                                    <Label layoutX="27.0" layoutY="4.0" style="-fx-background-color: F4F4F4;" text="History">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Pane>
+                              <GridPane maxHeight="1.7976931348623157E308">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints maxHeight="48.0" minHeight="17.0" prefHeight="17.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="356.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <StackPane.margin>
+                                    <Insets bottom="10.0" left="15.0" right="15.0" top="15.0" />
+                                 </StackPane.margin>
+                                 <children>
+                                    <ListView fx:id="mainList1" maxHeight="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                                    <Pane prefHeight="200.0" prefWidth="200.0" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </StackPane>
+                     </children>
+                        </GridPane>
                     </content>
                 </Tab>
             </tabs>

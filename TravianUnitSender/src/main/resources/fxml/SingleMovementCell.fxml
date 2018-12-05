@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import org.pupkaci.traviancomponents.DateTimePicker?>
+
+<GridPane fx:id="rootPane" maxHeight="224.0" maxWidth="810.0" minHeight="84.0" minWidth="810.0" prefHeight="163.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="247.0" minWidth="247.0" prefWidth="247.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.0" minWidth="214.0" prefWidth="214.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="388.0" minWidth="10.0" prefWidth="234.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="145.0" minHeight="20.0" prefHeight="28.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="145.0" minHeight="20.0" prefHeight="83.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="141.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+      <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <Label layoutX="9.0" layoutY="-8.0" style="-fx-background-color: f4f4f4;" text=" Coordinates " />
+            <Label layoutX="7.0" layoutY="12.0" text="Source village" />
+            <Label layoutX="7.0" layoutY="45.0" text="Target village" />
+            <TextField fx:id="sourceX" layoutX="98.0" layoutY="8.0" prefHeight="25.0" prefWidth="42.0" promptText="x" />
+            <Label layoutX="88.0" layoutY="12.0" text="x:" />
+            <TextField fx:id="sourceY" layoutX="156.0" layoutY="8.0" prefHeight="25.0" prefWidth="42.0" promptText="y" />
+            <Label layoutX="146.0" layoutY="12.0" text="y:" />
+            <Label layoutX="88.0" layoutY="45.0" text="x:" />
+            <Label layoutX="146.0" layoutY="45.0" text="y:" />
+            <Label fx:id="targetX" layoutX="104.0" layoutY="45.0" text="0" />
+            <Label fx:id="targetY" layoutX="164.0" layoutY="45.0" text="0" />
+         </children>
+         <GridPane.margin>
+            <Insets bottom="6.0" left="5.0" right="5.0" />
+         </GridPane.margin>
+      </Pane>
+      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowSpan="2147483647">
+         <children>
+            <VBox layoutX="8.0" layoutY="7.0" prefWidth="12.0" spacing="8.0">
+               <children>
+                  <ImageView fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/roman1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/roman2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/roman3.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/roman4.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/roman5.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox layoutX="42.0" layoutY="5.0" spacing="7.0">
+               <children>
+                  <TextField fx:id="unitNumField1" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
+                  <TextField fx:id="unitNumField2" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
+                  <TextField fx:id="unitNumField3" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
+                  <TextField fx:id="unitNumField4" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
+                  <TextField fx:id="unitNumField5" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
+               </children>
+            </VBox>
+            <VBox layoutX="132.0" layoutY="7.0" prefHeight="157.0" prefWidth="24.0" spacing="8.0">
+               <children>
+                  <ImageView fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/roman6.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/roman7.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/roman8.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/roman9.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="24.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/roman10.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox layoutX="165.0" layoutY="5.0" prefHeight="154.0" prefWidth="100.0" spacing="7.0">
+               <children>
+                  <TextField fx:id="unitNumField6" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
+                  <TextField fx:id="unitNumField7" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
+                  <TextField fx:id="unitNumField8" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
+                  <TextField fx:id="unitNumField9" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
+                  <TextField fx:id="unitNumField10" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+         <children>
+            <ImageView fitHeight="32.0" fitWidth="30.0" layoutX="313.0" layoutY="-2.0" onMouseClicked="#onCloseClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/delete1.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="35.0" fitWidth="40.0" layoutX="274.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/duplicateIcon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <Label layoutX="156.0" layoutY="6.0" text="Time Left :" />
+            <Label fx:id="timeLeftField" layoutX="217.0" layoutY="6.0" text="01:01:01" />
+         </children>
+      </Pane>
+      <Pane prefHeight="77.0" prefWidth="281.0" style="-fx-border-color: black;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+         <children>
+            <Label layoutX="9.0" layoutY="-8.0" style="-fx-background-color: f4f4f4;" text=" Parameters " />
+            <ChoiceBox fx:id="attackTypeBox" layoutX="84.0" layoutY="14.0" prefHeight="25.0" prefWidth="173.0" value="Normal">
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="Normal" />
+                     <String fx:value="Reinforcement" />
+                     <String fx:value="Raid" />
+                  </FXCollections>
+               </items>
+            </ChoiceBox>
+            <Label layoutX="15.0" layoutY="18.0" text="Type" />
+            <Label layoutX="15.0" layoutY="51.0" text="Departure" />
+            <DateTimePicker fx:id="departurePicker" layoutX="84.0" layoutY="47.0" onAction="#onDepartureChanged" />
+         </children>
+         <GridPane.margin>
+            <Insets bottom="6.0" right="5.0" />
+         </GridPane.margin>
+      </Pane>
+      <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+         <children>
+            <Label layoutX="9.0" layoutY="-8.0" style="-fx-background-color: f4f4f4;" text=" Parameters " />
+         </children>
+         <GridPane.margin>
+            <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+         </GridPane.margin>
+      </Pane>
+   </children>
+</GridPane>
