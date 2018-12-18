@@ -203,7 +203,10 @@
                                                         <TextField fx:id="sourceY" layoutX="190.0" layoutY="14.0" prefHeight="25.0" prefWidth="53.0" promptText="y" />
                                                         <Label layoutX="180.0" layoutY="18.0" text="y:" />
                                                         <TextField fx:id="targetX" layoutX="118.0" layoutY="47.0" prefHeight="25.0" prefWidth="53.0" promptText="x" />
-                                                        <Label layoutX="108.0" layoutY="51.0" text="x:" />
+                                                        <Label layoutX="108.0" layoutY="51.0" text="x:">
+                                             <padding>
+                                                <Insets bottom="2.0" />
+                                             </padding></Label>
                                                         <TextField fx:id="targetY" layoutX="190.0" layoutY="47.0" prefHeight="25.0" prefWidth="53.0" promptText="y" />
                                                         <Label layoutX="180.0" layoutY="51.0" text="y:" />
                                                     </children>
@@ -330,8 +333,32 @@
                                     <Insets bottom="10.0" left="15.0" right="15.0" top="15.0" />
                                  </StackPane.margin>
                                  <children>
-                                    <ListView fx:id="mainList1" maxHeight="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
-                                    <Pane prefHeight="200.0" prefWidth="200.0" />
+                                    <ListView fx:id="historyList" maxHeight="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                                    <Pane prefHeight="200.0" prefWidth="200.0">
+                                       <children>
+                                          <ChoiceBox layoutX="85.0" layoutY="12.0" prefWidth="150.0" value="Departure Time">
+                                              <items>
+                                                                <FXCollections fx:factory="observableArrayList">
+                                                                    <String fx:value="Departure Time" />
+                                                                    <String fx:value="Source" />
+                                                                    <String fx:value="Target" />
+                                                                    
+                                                                </FXCollections>
+                                                            </items>
+                                          </ChoiceBox>
+                                          <Label layoutX="26.0" layoutY="16.0" text="Order by :" />
+                                          <ChoiceBox layoutX="337.0" layoutY="12.0" prefWidth="150.0" value="All">
+                                             <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                   <String fx:value="All" />
+                                                   <String fx:value="Normal" />
+                                                   <String fx:value="Reinforcements" />
+                                                   <String fx:value="Raid" />
+                                                </FXCollections>
+                                             </items>
+                                          </ChoiceBox>
+                                          <Label layoutX="265.0" layoutY="16.0" text="Show types :" />
+                                       </children></Pane>
                                  </children>
                               </GridPane>
                            </children>

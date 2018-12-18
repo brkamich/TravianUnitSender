@@ -28,7 +28,7 @@
         <RowConstraints maxHeight="141.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-      <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <Pane fx:id="coorPane" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
             <Label layoutX="9.0" layoutY="-8.0" style="-fx-background-color: f4f4f4;" text=" Coordinates " />
             <Label layoutX="7.0" layoutY="12.0" text="Source village" />
@@ -77,7 +77,7 @@
                   </ImageView>
                </children>
             </VBox>
-            <VBox layoutX="42.0" layoutY="5.0" spacing="7.0">
+            <VBox fx:id="vBox1" layoutX="42.0" layoutY="5.0" spacing="7.0">
                <children>
                   <TextField fx:id="unitNumField1" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
                   <TextField fx:id="unitNumField2" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
@@ -115,7 +115,7 @@
                   </ImageView>
                </children>
             </VBox>
-            <VBox layoutX="165.0" layoutY="5.0" prefHeight="154.0" prefWidth="100.0" spacing="7.0">
+            <VBox fx:id="vBox2" layoutX="165.0" layoutY="5.0" prefHeight="154.0" prefWidth="100.0" spacing="7.0">
                <children>
                   <TextField fx:id="unitNumField6" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
                   <TextField fx:id="unitNumField7" maxWidth="80.0" prefHeight="25.0" prefWidth="80.0" />
@@ -126,9 +126,9 @@
             </VBox>
          </children>
       </Pane>
-      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+      <Pane fx:id="timePane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
          <children>
-            <ImageView fitHeight="32.0" fitWidth="30.0" layoutX="313.0" layoutY="-2.0" onMouseClicked="#onCloseClicked" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="deleteBtn" fitHeight="32.0" fitWidth="30.0" layoutX="313.0" layoutY="-2.0" onMouseClicked="#onCloseClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/delete1.png" />
                </image>
@@ -136,7 +136,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fitHeight="35.0" fitWidth="40.0" layoutX="274.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="duplicateBtn" fitHeight="35.0" fitWidth="40.0" layoutX="274.0" layoutY="-4.0" onMouseClicked="#onDuplicatedClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/duplicateIcon.png" />
                </image>
@@ -144,13 +144,13 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Label layoutX="156.0" layoutY="6.0" text="Time Left :" />
+            <Label fx:id="timeLefLabel" layoutX="156.0" layoutY="6.0" text="Time Left :" />
             <Label fx:id="timeLeftField" layoutX="217.0" layoutY="6.0" text="01:01:01" />
          </children>
       </Pane>
-      <Pane prefHeight="77.0" prefWidth="281.0" style="-fx-border-color: black;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <Pane fx:id="attackPane" prefHeight="77.0" prefWidth="281.0" style="-fx-border-color: black;" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <children>
-            <Label layoutX="9.0" layoutY="-8.0" style="-fx-background-color: f4f4f4;" text=" Parameters " />
+            <Label fx:id="paramPane" layoutX="9.0" layoutY="-8.0" style="-fx-background-color: f4f4f4;" text=" Parameters " />
             <ChoiceBox fx:id="attackTypeBox" layoutX="84.0" layoutY="14.0" prefHeight="25.0" prefWidth="173.0" value="Normal">
                <items>
                   <FXCollections fx:factory="observableArrayList">

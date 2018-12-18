@@ -32,6 +32,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -47,6 +50,7 @@ import org.pupkaci.traviancomponents.DateTimePicker;
  * @author molnaric
  */
 public class MainSceneController implements Initializable {
+
     //fxml bindings
     @FXML
     private TextField sourceX;
@@ -57,8 +61,8 @@ public class MainSceneController implements Initializable {
     @FXML
     private TextField targetY;
     @FXML
-    private ChoiceBox  attackTypeBox;
-    
+    private ChoiceBox attackTypeBox;
+
     @FXML
     private TextField unitNumField1;
     @FXML
@@ -81,31 +85,38 @@ public class MainSceneController implements Initializable {
     private TextField unitNumField10;
     @FXML
     private DateTimePicker departurePicker;
-    
+    @FXML
+    private Label timeLefLabel;
     //others
     private ArrayList<TextField> unitFields = new ArrayList<TextField>();
-    
+private static ArrayList<MovementCellData> historyMovements = new ArrayList<>();
     private static ArrayList<MovementCellData> movements = new ArrayList<>();
     private static MainSceneController singleton;
     @FXML
+    private ListView historyList;
+
+    private ObservableList historyObservableList = FXCollections.observableArrayList();
+    @FXML
     private ListView mainList;
-    
+
     private ObservableList observableList = FXCollections.observableArrayList();
     public Stage stage;
-     @Override
+
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
         singleton = this;
-        Callback<ListView<MovementCellData>, ListCell<MovementCellData>> factory = new Callback<ListView<MovementCellData>, ListCell<MovementCellData>>(){
+        Callback<ListView<MovementCellData>, ListCell<MovementCellData>> factory = new Callback<ListView<MovementCellData>, ListCell<MovementCellData>>() {
             @Override
             public ListCell<MovementCellData> call(ListView<MovementCellData> p) {
-                 
+
                 ListCell<MovementCellData> cell = new MovementListCell();
                 return cell;
             }
         };
+        historyList.setCellFactory(factory);
+        historyList.setItems(historyObservableList);
         mainList.setCellFactory(factory);
         mainList.setItems(observableList);
-        
 
         unitFields.add(unitNumField1);
         unitFields.add(unitNumField2);
@@ -117,56 +128,50 @@ public class MainSceneController implements Initializable {
         unitFields.add(unitNumField8);
         unitFields.add(unitNumField9);
         unitFields.add(unitNumField10);
-        
+
         ArrayList<TextField> targets = new ArrayList<>();
         targets.add(targetX);
         targets.add(targetY);
         targets.add(sourceX);
         targets.add(sourceY);
         //make field numeric only
-        for(int i =0;i < 4;i++)
-        {
+        for (int i = 0; i < 4; i++) {
             TextField f = targets.get(i);
             f.textProperty().addListener(new ChangeListener<String>() {
                 @Override
-                public void changed(ObservableValue<? extends String> observable, String oldValue, 
-                    String newValue) {
+                public void changed(ObservableValue<? extends String> observable, String oldValue,
+                        String newValue) {
                     if (!newValue.matches("\\d*")) {
                         f.setText(newValue.replaceAll("[^\\d]", ""));
                     }
-                    System.out.println("Value:'"+newValue+"'");
-                    
+                    System.out.println("Value:'" + newValue + "'");
+
                 }
             });
         }
-        for(int i =0;i < 10;i++)
-        {
+        for (int i = 0; i < 10; i++) {
             TextField f = unitFields.get(i);
             f.textProperty().addListener(new ChangeListener<String>() {
                 @Override
-                public void changed(ObservableValue<? extends String> observable, String oldValue, 
-                    String newValue) {
+                public void changed(ObservableValue<? extends String> observable, String oldValue,
+                        String newValue) {
                     if (!newValue.matches("\\d*")) {
                         f.setText(newValue.replaceAll("[^\\d]", ""));
                     }
-                    System.out.println("Value:'"+newValue+"'");
-                    
+                    System.out.println("Value:'" + newValue + "'");
+
                 }
             });
-            f.focusedProperty().addListener(new ChangeListener<Boolean>()
-            {
+            f.focusedProperty().addListener(new ChangeListener<Boolean>() {
                 @Override
-                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
-                {
-                    if (!newPropertyValue)
-                    {
+                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                    if (!newPropertyValue) {
                         String txt = f.textProperty().get();
-                        if("".equals(txt) || txt == null)
-                        {
+                        if ("".equals(txt) || txt == null) {
                             System.out.println("Text empty");
                             f.setText("0");
                         }
-                        
+
                     }
                 }
             });
@@ -174,26 +179,59 @@ public class MainSceneController implements Initializable {
         }
         LocalDateTime now = LocalDateTime.now();
         departurePicker.setDateTimeValue(now.plusHours(2));
-    }    
-    public static void deleteItem(UUID id)
-    {
-        for(int i = 0;i < movements.size();i++)
-        {
-            MovementCellData mov  = movements.get(i);
-            boolean matched = false;
-            for(int t = 0;t < mov.movements.size();t++)
-            {
+        addToHistory("4","4");
+        addToHistory("2","5");
+    }
+
+    public static void duplicateItem(UUID id) {
+        boolean matched = false;
+        for (int i = 0; i < movements.size(); i++) {
+            MovementCellData mov = movements.get(i);
+
+            for (int t = 0; t < mov.movements.size(); t++) {
                 SingleMovementData sub = mov.movements.get(t);
-                if(sub.id.equals(id))
-                {
+                if (sub.id.equals(id)) {
                     matched = true;
-                    mov.remove(id,t);
+                    SingleMovementData newSub = new SingleMovementData(sub,false);
+                    mov.addMovement(newSub);
+                    System.out.println("Duplicated");
                     break;
                 }
             }
-            if(matched)
-            {
-                if (mov.movements.size()==0) {
+            if (matched) {
+                singleton.mainList.refresh();
+                break;
+            }
+        }
+        if (!matched) {
+            System.out.println("Could not find item id :" + id);
+            for (int i = 0; i < movements.size(); i++) {
+                System.out.println("M");
+                MovementCellData mov = movements.get(i);
+
+                for (int t = 0; t < mov.movements.size(); t++) {
+                    SingleMovementData sub = mov.movements.get(t);
+                    System.out.println("Single:"+sub.id);
+                }
+            }
+        }
+    }
+
+    public static void deleteItem(UUID id) {
+        System.out.println("Deleting "+id);
+        for (int i = 0; i < movements.size(); i++) {
+            MovementCellData mov = movements.get(i);
+            boolean matched = false;
+            for (int t = 0; t < mov.movements.size(); t++) {
+                SingleMovementData sub = mov.movements.get(t);
+                if (sub.id.equals(id)) {
+                    matched = true;
+                    mov.remove(id, t);
+                    break;
+                }
+            }
+            if (matched) {
+                if (mov.movements.size() == 0) {
                     MovementCellData dataToRemove = movements.get(i);
                     movements.remove(dataToRemove);
                     singleton.observableList.remove(dataToRemove);
@@ -203,49 +241,69 @@ public class MainSceneController implements Initializable {
             }
         }
     }
-    
+
     @FXML
     private void onSignOutClick(ActionEvent event) {
         MainApp.signOut();
     }
+    public void addToHistory(String tx,String ty)
+    {
+        System.out.println("Adding to history");
+        
+        SingleMovementData newItem = new SingleMovementData(true);
+        for (int i = 0; i < 10; i++) {
+
+            newItem.setUnitAmount(i, unitFields.get(i).getText());
+            if(i==2)newItem.setUnitAmount(i,"200");
+            if(i==3)newItem.setUnitAmount(i,"100");
+        }
+        newItem.departureDate = departurePicker.getDateTimeValue();
+        newItem.creationDate = LocalDateTime.now();
+        newItem.targetX = tx;
+        newItem.targetY = ty;
+        newItem.sourceX = "4";
+        newItem.sourceY = "5";
+        newItem.movementType = "Normal";
+        MovementCellData cell = GetHistoryCell(newItem);
+        cell.addMovement(newItem);
+        historyList.refresh();
+    }
     @FXML
     private void onMovementAddClick(ActionEvent event) {
         System.out.println("Clicked add movement");
-        try
-        {
-            Integer.parseInt(targetX.getText());  
+        try {
+            Integer.parseInt(targetX.getText());
             Integer.parseInt(targetY.getText());
             Integer.parseInt(sourceX.getText());
             Integer.parseInt(sourceY.getText());
-        }catch(Exception ex)
-        {
+        } catch (Exception ex) {
             System.out.println("Failed to parse");
+            Alert alert = new Alert(AlertType.ERROR, "Please enter valid coordinates.", ButtonType.OK);
+            alert.showAndWait();
             return;
         }
-        SingleMovementData newItem  = new SingleMovementData(); 
-        for(int i = 0;i < 10;i++)
-        {
-            
-            newItem.setUnitAmount(i,unitFields.get(i).getText());
-        }     
+        SingleMovementData newItem = new SingleMovementData(false);
+        for (int i = 0; i < 10; i++) {
+
+            newItem.setUnitAmount(i, unitFields.get(i).getText());
+        }
         newItem.departureDate = departurePicker.getDateTimeValue();
-        newItem.creationDate =  LocalDateTime.now();
+        newItem.creationDate = LocalDateTime.now();
         newItem.targetX = targetX.getText();
         newItem.targetY = targetY.getText();
         newItem.sourceX = sourceX.getText();
         newItem.sourceY = sourceY.getText();
-        newItem.movementType = (String)attackTypeBox.getValue();
+        newItem.movementType = (String) attackTypeBox.getValue();
         MovementCellData cell = GetCell(newItem);
         cell.addMovement(newItem);
         mainList.refresh();
     }
-    
+
     @FXML
     private void onResetBtnClick(ActionEvent event) {
         System.out.println("Clicked reset movement");
-        
-        for(int i =0;i < 10;i++)
-        {
+
+        for (int i = 0; i < 10; i++) {
             TextField f = unitFields.get(i);
             f.setText("0");
         }
@@ -253,11 +311,11 @@ public class MainSceneController implements Initializable {
         departurePicker.setDateTimeValue(now.plusHours(2));
         attackTypeBox.setValue("Normal");
     }
+
     @FXML
     private void onAboutClick(ActionEvent event) {
         System.out.println("Clicked about");
-        try
-        {
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AboutDialog.fxml"));
             Parent parent = fxmlLoader.load();
             AboutDialogController dialogController = fxmlLoader.<AboutDialogController>getController();
@@ -267,47 +325,59 @@ public class MainSceneController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
-        }catch(Exception ex)
-        {
-            
+        } catch (Exception ex) {
+
         }
     }
-    
-    @FXML 
+
+    @FXML
     private void onImportClick(ActionEvent event) {
         System.out.println("Clicked import");
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("Project JSON Files", "*.json")
-       );
+                new FileChooser.ExtensionFilter("Project JSON Files", "*.json")
+        );
         File selectedFile = fileChooser.showOpenDialog(MainApp.stage);
-        System.out.println("Opened file "+selectedFile.getName());
+        System.out.println("Opened file " + selectedFile.getName());
     }
-    @FXML 
+
+    @FXML
     private void onExportClick(ActionEvent event) {
         System.out.println("Clicked export");
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialFileName("untitledProject1.json");
         fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("Project JSON Files", "*.json")
-       );
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")+"/Documents"));
+                new FileChooser.ExtensionFilter("Project JSON Files", "*.json")
+        );
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Documents"));
         File selectedFile = fileChooser.showSaveDialog(MainApp.stage);
-        System.out.println("Opened file "+selectedFile.getName());
+        System.out.println("Opened file " + selectedFile.getName());
     }
-    private MovementCellData GetCell(SingleMovementData newItem) {
+    private MovementCellData GetHistoryCell(SingleMovementData newItem) {
         //temp
-        
-        for(int i = 0;i < movements.size();i++)
-        {
-            MovementCellData mov  = movements.get(i);
-            if(mov.targetX.equals(newItem.targetX) && mov.targetY.equals(newItem.targetY))
-            {
+        for (int i = 0; i < historyMovements.size(); i++) {
+            MovementCellData mov = historyMovements.get(i);
+            if (mov.targetX.equals(newItem.targetX) && mov.targetY.equals(newItem.targetY)) {
                 return mov;
             }
         }
-        
-        MovementCellData data = new MovementCellData(newItem.targetX,newItem.targetY);
+
+        MovementCellData data = new MovementCellData(newItem.targetX, newItem.targetY);
+        historyMovements.add(data);
+        historyObservableList.add(data);
+        return data;
+    }
+    private MovementCellData GetCell(SingleMovementData newItem) {
+        //temp
+
+        for (int i = 0; i < movements.size(); i++) {
+            MovementCellData mov = movements.get(i);
+            if (mov.targetX.equals(newItem.targetX) && mov.targetY.equals(newItem.targetY)) {
+                return mov;
+            }
+        }
+
+        MovementCellData data = new MovementCellData(newItem.targetX, newItem.targetY);
         movements.add(data);
         observableList.add(data);
         return data;

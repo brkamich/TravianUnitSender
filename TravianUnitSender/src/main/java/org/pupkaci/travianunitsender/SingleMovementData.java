@@ -16,7 +16,7 @@ import org.pupkaci.traviancomponents.DateTimePicker;
  * @author molnaric
  */
 public class SingleMovementData {
-    public final UUID id;
+    public UUID id;
     public ArrayList<String> unitAmounts = new ArrayList<>();
     LocalDateTime departureDate ;
     LocalDateTime creationDate;
@@ -25,15 +25,37 @@ public class SingleMovementData {
     public String sourceX;
     public String sourceY;
     String movementType;
+    boolean IsHistory;
     
     
-    
-    public SingleMovementData()
+    public SingleMovementData(boolean isHistory)
     {
-        this. id = UUID.randomUUID();
+        IsHistory = isHistory;
+        AssignID();
+    }
+
+    SingleMovementData(SingleMovementData sub,boolean isHistory) {
+        AssignID();
+        IsHistory = isHistory;
+        departureDate = sub.departureDate;
+        creationDate = sub.creationDate;
+        targetX = sub.targetX;
+        targetY = sub.targetY;
+        sourceX = sub.sourceX;
+        sourceY = sub.sourceY;
+        movementType = sub.movementType;
+        for(String amt :sub. unitAmounts)
+        {
+            unitAmounts.add(amt.toString());
+        }
     }
     
     void setUnitAmount(int i, String text) {
         unitAmounts.add(text);
+    }
+
+    private void AssignID() {
+        this. id = UUID.randomUUID();
+        System.out.println("Assigned new ID : "+id);
     }
 }

@@ -112,12 +112,17 @@ public class MovementListCell extends ListCell<MovementCellData> {
             for(int i = 0;i < item.movements.size();i++)
             {
                 SingleMovementData cellData = item.movements.get(i);
-                if(existingCellUUIDs.contains(cellData.id))
+                boolean c = false;
+                for(int ii = 0;ii < existingCellUUIDs.size();ii++)
                 {
-                    
-                }else
+                    if(existingCellUUIDs.get(ii).equals(cellData.id))
+                    {
+                        c=true;
+                        break;
+                    }
+                }
+                if(!c)
                 {
-                    
                     existingCellUUIDs.add(cellData.id);
                     System.out.println("New iD:"+item.movements.get(i).id);
                     observableList.add(cellData);
